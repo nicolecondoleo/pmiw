@@ -145,7 +145,6 @@ mostrarInstrucciones() {
     // astronauta + balas
     this.astronauta.dibujar();
 
-    // fragmentos: mover, dibujar, colisiones
     for (this.i = 0; this.i < this.fragmentos.length; this.i++) {
       this.fragmentos[this.i].mover();
       this.fragmentos[this.i].dibujar();
@@ -209,7 +208,6 @@ mostrarInstrucciones() {
       }
     }
 
-    // dibujar explosión (duración visible)
     if (this.mostrarExplosion && frameCount - this.explosionFrame < 30) {
       image(explosionImg, this.explosionX, this.explosionY, 300, 300);
     } else {
@@ -222,8 +220,6 @@ mostrarInstrucciones() {
       this.pantalla = "ganaste";
     }
   }
-
-  // ---------- PANTALLA: GAME OVER ----------
   mostrarGameOver() {
     image(this.fondo, 0, 0, width, height);
 
@@ -239,7 +235,6 @@ mostrarInstrucciones() {
     this.dibujarBoton(width / 2, height / 2 + 40, "VOLVER A JUGAR");
   }
 
-  // ---------- PANTALLA: GANASTE ----------
   mostrarGanaste() {
     image(this.fondo, 0, 0, width, height);
 
@@ -255,7 +250,6 @@ mostrarInstrucciones() {
     this.dibujarBoton(width / 2, height / 2 + 40, "VOLVER AL INICIO");
   }
 
-  // ---------- DIBUJAR BOTÓN (centrado en cx,cy) ----------
   dibujarBoton(cx, cy, texto) {
     rectMode(CENTER);
     this.w = this.botonAncho;
@@ -276,8 +270,6 @@ mostrarInstrucciones() {
     textSize(22);
     text(texto, cx, cy);
   }
-
-  // ---------- MOUSE PRESIONADO (maneja clicks en botones) ----------
   mousePresionado() {
     // INICIO -> CONTEXTO
     if (this.pantalla === "inicio" && this.enBoton(width / 2, height / 2 + 60)) {
@@ -286,35 +278,30 @@ mostrarInstrucciones() {
       return;
     }
 
-    // CONTEXTO -> INSTRUCCIONES
     if (this.pantalla === "contexto" && this.enBoton(width / 2, height / 2 + 70)) {
       if (click && click.isLoaded) { click.amp(1); click.play(); }
       this.pantalla = "instrucciones";
       return;
     }
 
-    // INSTRUCCIONES -> JUGAR
     if (this.pantalla === "instrucciones" && this.enBoton(width / 2, height / 2 + 150)) {
       if (click && click.isLoaded) { click.amp(1); click.play(); }
       this.iniciarJuego();
       return;
     }
 
-    // GAMEOVER -> REINICIAR (JUGAR)
     if (this.pantalla === "gameover" && this.enBoton(width / 2, height / 2 + 40)) {
       if (click && click.isLoaded) { click.amp(1); click.play(); }
       this.iniciarJuego();
       return;
     }
 
-    // GANASTE -> VOLVER AL INICIO
     if (this.pantalla === "ganaste" && this.enBoton(width / 2, height / 2 + 40)) {
       if (click && click.isLoaded) { click.amp(1); click.play(); }
       this.pantalla = "inicio";
       return;
     }
 
-    // durante el juego los clicks no navegan; si querés click para disparar, lo habilito
   }
 
   enBoton(cx, cy) {
@@ -324,7 +311,6 @@ mostrarInstrucciones() {
             mouseY > cy - this.h / 2 && mouseY < cy + this.h / 2);
   }
 
-  // ---------- KEY PRESIONADO (delegado desde global keyPressed) ----------
   keyPresionado(kc) {
     if (this.pantalla === "juego") {
       if (kc === LEFT_ARROW) this.astronauta.moverIzquierda();
@@ -336,7 +322,6 @@ mostrarInstrucciones() {
       }
     }
 
-    // reiniciar con ENTER desde gameover o ganaste
     if ((this.pantalla === "gameover" || this.pantalla === "ganaste") && kc === ENTER) {
       this.reiniciarAGInicio();
     }
@@ -350,4 +335,5 @@ mostrarInstrucciones() {
     this.mostrarExplosion = false;
   }
 }
+
 
