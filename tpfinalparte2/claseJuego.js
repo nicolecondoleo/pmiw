@@ -4,7 +4,6 @@ class Juego {
     this.fondo = fondoImg;
     this.contexto = contextoImg;
 
-    // pantalla actual (encapsulada)
     this.pantalla = "inicio"; // "inicio", "contexto", "instrucciones", "juego", "gameover", "ganaste"
 
     // botones (tamaño)
@@ -17,7 +16,6 @@ class Juego {
     // fragmentos (array)
     this.fragmentos = [];
 
-    // parámetros del juego (ahora DENTRO de Juego)
     this.totalFragmentos = 12;
     this.vidas = 3;
     this.inicioFrame = 0;
@@ -38,8 +36,6 @@ class Juego {
     else if (this.pantalla === "gameover") this.mostrarGameOver();
     else if (this.pantalla === "ganaste") this.mostrarGanaste();
   }
-
-  // ---------- PANTALLA: INICIO ----------
   mostrarInicio() {
     image(this.fondo, 0, 0, width, height);
     fill(255);
@@ -48,8 +44,6 @@ class Juego {
     text("FRAGMENTADOS", width / 2, height / 2 - 40);
     this.dibujarBoton(width / 2, height / 2 + 60, "INICIAR");
   }
-
-  // ---------- PANTALLA: CONTEXTO (segunda pantalla, texto sin corte) ----------
   mostrarContexto() {
     image(this.contexto, 0, 0, width, height);
 
@@ -70,7 +64,6 @@ class Juego {
 mostrarInstrucciones() {
   image(this.fondo, 0, 0, width, height);
 
-  // RECTÁNGULO — USAR CORNER PARA QUE NO SE DESCALCE
   rectMode(CORNER);
   fill(0, 0, 0, 170);
   rect(width / 2 - 280, height / 2 - 170, 560, 340, 18);
@@ -96,12 +89,10 @@ mostrarInstrucciones() {
     300
   );
 
-  // BOTÓN — USAR CENTER COMO SIEMPRE
   rectMode(CENTER);
   this.dibujarBoton(width / 2, height / 2 + 150, "JUGAR");
 }
 
-  // ---------- INICIAR JUEGO ----------
   iniciarJuego() {
     // cambiar pantalla
     this.pantalla = "juego";
@@ -126,8 +117,6 @@ mostrarInstrucciones() {
         this.tipo
       );
     }
-
-    // iniciar tiempo
     this.inicioFrame = frameCount;
 
     // iniciar música de loop para el juego
@@ -138,7 +127,6 @@ mostrarInstrucciones() {
     }
   }
 
-  // ---------- PANTALLA: JUEGO ----------
   mostrarJuego() {
     image(this.fondo, 0, 0, width, height);
 
@@ -362,3 +350,4 @@ mostrarInstrucciones() {
     this.mostrarExplosion = false;
   }
 }
+
